@@ -8,9 +8,9 @@ public interface ITaskService {
 
     public boolean addTask(Task task);
 
-    public List<Task> updateTask(Task task);
+    public boolean updateTask(String taskId, String newStatus, String newDeadline);
 
-    public List<Task> deleteTask(int taskId);
+    public boolean deleteTask(String inputTaskId);
 
     public List<Task> getTasks();
 

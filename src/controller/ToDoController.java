@@ -56,6 +56,18 @@ public class ToDoController {
     }
   }
 
+  private void showStatusOption() {
+    System.out.println("Please Select Your Current Task Status From the Given Options");
+    System.out.println("Current Status: ");
+    int i = 1;
+
+    for(TaskStatus taskStatus:TaskStatus.values()){
+      System.out.println(i+": "+taskStatus);
+      i++;
+    }
+    System.out.println("0. Skip");
+  }
+
   private boolean addTask() {
     String taskName = getUserInput("Enter the Task Name");
     String taskDeadline = getUserInput(
@@ -67,11 +79,57 @@ public class ToDoController {
   }
 
   private boolean updateTask() {
-    return false;
+    //Select Task to Update
+    getTasks();
+    String inputId = getUserInput("Enter the Task Id You Want to Update");
+
+    //Select New Status
+    showStatusOption();
+    String newStatus = getUserInput("Enter the Current Status Number");
+
+    //Enter New Deadline
+    String newDeadline = getUserInput("Enter the Task Deadline in format as 01-Jan-2024 [Optional, Press Enter to skip] ");
+    
+    //Update Task
+    try {
+      boolean successStatus = taskService.updateTask(inputId, newStatus, newDeadline);
+      if(successStatus){
+        System.out.println("Task Updated Successfully!");
+        return true;
+      }
+      System.out.println("Unable to Update the Task Due to Internal Error");
+      return false;
+      
+    } 
+    catch (Exception e) {
+      System.out.println(e.getMessage());
+      System.out.println("Unable to Update the Task Due to Invalid Input/Inputs!");
+      return false;
+    }
+    
   }
 
   private boolean deleteTask() {
-    return false;
+    //Select Task to Delete
+    getTasks();
+    String inputId = getUserInput("Please Enter the Task Id You Want to Delete");
+
+    //Delete the Task
+    try {
+      boolean successStatus = taskService.deleteTask(inputId);
+      if(successStatus){
+        System.out.println("Task Deleted Successfully!");
+        return true;
+      }
+      System.out.println("Unable to Delete the Task Due to Internal Error");
+      return false;
+
+    } 
+    catch (Exception e) {
+      System.out.println(e.getMessage());
+      System.out.println("Unable to Delete the Task Due to Invalid Input/Inputs!");
+      return false;
+    }
   }
 
   private void getTasks() {

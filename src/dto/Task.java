@@ -23,8 +23,8 @@ public class Task {
         return taskName;
     }
 
-    public String getTaskStatus() {
-        return String.valueOf(taskStatus);
+    public TaskStatus getTaskStatus() {
+        return taskStatus;
     }
 
     public String getTaskDeadline() {
@@ -34,6 +34,14 @@ public class Task {
     public static int getTaskAutoId() {
         taskAutoId++;
         return taskAutoId;
+    }
+
+    public void setTaskStatus(TaskStatus taskStatus){
+        this.taskStatus = taskStatus;
+    }
+
+    public void  setTaskDeadline(String deadline){
+        this.deadline = deadline;
     }
 
 }
